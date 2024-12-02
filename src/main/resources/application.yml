@@ -1,0 +1,21 @@
+server:
+  port: 8090
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:5002/PersonalFinanceDB
+    username: TimmyChan
+    password: 000y8784
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database: mysql
+    show-sql: true
+logging:
+  file:
+    name: "./logs/testing/testing.log"
+    total-size-cap: 1GB
+    clean-history-on-start: true
