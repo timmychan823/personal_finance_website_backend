@@ -5,9 +5,9 @@ import com.example.demo.model.Expenditure;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +29,10 @@ public class ExpenditureService {
         expenditureRepository.save(expenditure);
     }
 
+    public void updateOneExpenditure(Expenditure expenditure) throws SQLException {
+        expenditureRepository.findByTransactionID(expenditure.getTransactionID()).orElseThrow(SQLException::new);
+        expenditureRepository.save(expenditure);
+    }
     public void deleteExpenditureByTransactionID(Long transactionID){
         expenditureRepository.deleteByTransactionID(transactionID);
     }
@@ -43,7 +47,7 @@ public class ExpenditureService {
 
     public Page<Expenditure> findExpenditureByReceiver(String receiver,int pageNo, int pageSize){
         PageRequest pageRequest = PageRequest.of(pageNo,pageSize);
-        return expenditureRepository.findByReceiver(receiver, pageRequest);
+        return expenditureRepository.findByReceiverContaining(receiver, pageRequest);
     }
 
     public Page<Expenditure> findExpenditureWithFilteringConditions(String filteringConditions, int pageNo, int pageSize){

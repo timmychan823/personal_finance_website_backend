@@ -1,9 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Expenditure;
-import com.example.demo.service.ExpenditureService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +13,7 @@ import java.util.Optional;
 public interface ExpenditureRepository extends JpaRepository<Expenditure,Long> {
     void deleteByTransactionID(Long transactionID);
     Optional<Expenditure> findByTransactionID(Long transactionID);
-    Page<Expenditure> findByReceiver(String receiver, Pageable pageRequest);
+    Page<Expenditure> findByReceiverContaining(String receiver, Pageable pageRequest);
 
     @Query(value = "SELECT DISTINCT receiver FROM Expenditures where receiver LIKE ?1 ORDER BY receiver ASC LIMIT 10", nativeQuery = true)
     List<String> findReceiver(String receiver);
