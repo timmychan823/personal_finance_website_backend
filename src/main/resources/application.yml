@@ -1,0 +1,25 @@
+server:
+  port: 8090
+spring:
+  datasource:
+    url: jdbc:postgresql://postgresql:5432/personalfinancedb
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+    continue-on-error: true
+  sql:
+    init:
+      continue-on-error: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      database-platform: org-hibernate-dialect-PostgresSQLDialect
+    database: POSTGRESQL
+    show-sql: true
+logging:
+  file:
+    name: "./logs/testing/testing.log"
+    total-size-cap: 1GB
+    clean-history-on-start: true
