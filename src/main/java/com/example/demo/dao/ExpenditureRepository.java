@@ -10,21 +10,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public interface ExpenditureRepository extends JpaRepository<Expenditure,Integer> {
+public interface ExpenditureRepository extends JpaRepository<Expenditure, Integer> {
     void deleteByTransactionID(Integer transactionID);
+
     Optional<Expenditure> findByTransactionID(Integer transactionID);
+
     Page<Expenditure> findByReceiverContaining(String receiver, Pageable pageRequest);
 
     @Query(value = "SELECT DISTINCT receiver FROM Expenditures where receiver LIKE ?1 ORDER BY receiver ASC LIMIT 10", nativeQuery = true)
     List<String> findReceiver(String receiver);
 
     @Query(value = "SELECT SUM(cost) AS totalExpenditure FROM Expenditures", nativeQuery = true)
-    List<Map<String,Object>> calculateSum();
+    List<Map<String, Object>> calculateSum();
 
     @Query(value = "SELECT SUM(cost) AS totalExpenditure FROM Expenditures where Receiver = ?1", nativeQuery = true)
-    List<Map<String,Object>> calculateSumByReceiver(String receiver);
+    List<Map<String, Object>> calculateSumByReceiver(String receiver);
 
-    @Query(value = "SELECT * FROM Expenditures ?1", nativeQuery = true) //this won't work
+    @Query(value = "SELECT * FROM Expenditures ?1", nativeQuery = true) // this won't work
     Page<Expenditure> findExpendituresWithFilteringConditions(String filteringConditions, Pageable pageRequest);
 
 }

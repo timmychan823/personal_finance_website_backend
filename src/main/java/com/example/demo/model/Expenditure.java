@@ -17,17 +17,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="Expenditures")
+@Table(name = "Expenditures")
 public class Expenditure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer transactionID;
-    @NotNull
+    Integer transactionID;
+
     @Positive
+    @NotNull
     private Float cost;
+
     @NotNull
     @PastOrPresent
     private LocalDateTime datetime;
+
     @NotBlank
     private String receiver;
 }
